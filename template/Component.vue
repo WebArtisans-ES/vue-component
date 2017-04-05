@@ -9,6 +9,6 @@
 <!--Template-->
 <template src="./{{name}}.html"></template>
 <!--Script-->
-<script src="./{{name}}.{{#script}}{{../script}}{{else}}js{{/script}}" {{#script}}lang="{{../script}}{{/script}}"></script>
+<script src="./{{name}}.{{#script}}{{../script}}{{else}}js{{/script}}" {{#script}}lang="{{../script}}"{{/script}}></script>
 <!--Style-->
 <style src="./{{name}}.{{#style}}{{../style}}{{else}}css{{/style}}" {{#style}}lang="{{../style}}"{{/style}} scoped></style>
