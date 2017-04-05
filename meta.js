@@ -2,6 +2,10 @@ var exec = require('child_process').exec;
 var fs = require('fs');
 
 module.exports = {
+  helpers: {
+			lowercase: str => str.toLowerCase(),
+		capitalize: str => str.charAt(0).toUpperCase() + str.slice(1)
+  },
   prompts: {
     "name": {
       "type": "string",
@@ -85,6 +89,7 @@ module.exports = {
   complete (data, {logger, chalk, files}) {
     // Convert the name to SnakeCase
     let name = data.name
+	  let CapitalizedName = name.charAt(0).toUpperCase() + name.slice(1)
 
     // Default Directory
     let destDirName = `./`
@@ -106,7 +111,7 @@ module.exports = {
         // Unless its ".vue" file rename it to the component name
         if (ext != ".vue") {
           fs.rename(
-            `${destDirName}/component${ext}`, `${destDirName}/${name}${ext}`, (err) => {})
+            `${destDirName}/component${ext}`, `${destDirName}/${CapitalizedName}${ext}`, (err) => {})
         }
       }
     })
