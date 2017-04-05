@@ -1,0 +1,6 @@
+{
+  "name": "{{ name }}",
+  "description": "{{ description }}",
+  "author": "{{ author }}",
+  "main": "Component.vue"
+}
