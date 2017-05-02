@@ -1,4 +1,4 @@
-# {{ name }} Component
+# {{ capitalize name }} Component
 
 > {{ description }}
 
