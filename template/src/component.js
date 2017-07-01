@@ -53,7 +53,7 @@ export default {
 	 */
 	beforeCreate () {
 
-	}
+	},
 
 	/**
 	 * Before Create hook for component
@@ -61,7 +61,7 @@ export default {
 	 */
 	created () {
 
-	}
+	},
 
 	/**
 	 * Mounted hook for component
