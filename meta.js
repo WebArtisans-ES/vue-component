@@ -1,9 +1,11 @@
 var exec = require('child_process').exec;
 var fs = require('fs');
+var sh = require("shelljs");
+var pwd = sh.pwd();
 
 module.exports = {
   helpers: {
-			lowercase: str => str.toLowerCase(),
+		lowercase: str => str.toLowerCase(),
 		capitalize: str => str.charAt(0).toUpperCase() + str.slice(1)
   },
   prompts: {
@@ -86,19 +88,27 @@ module.exports = {
     "src/component.js": "!jspreprocesor || (jspreprocesor && script === 'js')",
     "src/component.coffee": "jspreprocesor && script === 'coffee'"
   },
+  "metalsmith": function (metalsmith, opts, helpers) {
+    function customMetalsmithPlugin (files, metalsmith, done) {
+      // Implement something really custom here.
+      done(null, files)
+    }
+    metalsmith.use(customMetalsmithPlugin)
+   },
   complete (data, {logger, chalk, files}) {
+
     // Convert the name to SnakeCase
     let name = data.name
-	  let CapitalizedName = name.charAt(0).toUpperCase() + name.slice(1)
+    let CapitalizedName = name.charAt(0).toUpperCase() + name.slice(1)
 
     // Default Directory
-    let destDirName = `./`
+    let destDirName = `/`
 
     // Incase a directory is provided change the directory
     if (!data.inPlace) {
-      destDirName += data.destDirName
+      destDirName = pwd + '/' + data.destDirName + '/src'
     }
-
+    
     // Iterate over all the files
     Object.keys(files).forEach((key) => {
       // Search for the files with "component"
@@ -106,12 +116,15 @@ module.exports = {
       // If the file has component in the name
       if (pos != -1) {
         // Get the extension
-        let ext = key.substr(9, (key.length - 1))
-
+        let ext =  key.substr(key.lastIndexOf('.'))
         // Unless its ".vue" file rename it to the component name
         if (ext != ".vue") {
           fs.rename(
-            `${destDirName}/component${ext}`, `${destDirName}/${CapitalizedName}${ext}`, (err) => {})
+            `${destDirName}/component${ext}`, `${destDirName}/${CapitalizedName}${ext}`, (err) => {
+              if(err) {
+                console.log(err)
+              }
+            })
         }
       }
     })
