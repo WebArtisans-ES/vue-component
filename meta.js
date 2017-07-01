@@ -1,5 +1,6 @@
 var exec = require('child_process').exec;
 var fs = require('fs');
+var path = require("path");
 var sh = require("shelljs");
 var pwd = sh.pwd();
 
@@ -96,7 +97,6 @@ module.exports = {
     metalsmith.use(customMetalsmithPlugin)
    },
   complete (data, {logger, chalk, files}) {
-
     // Convert the name to SnakeCase
     let name = data.name
     let CapitalizedName = name.charAt(0).toUpperCase() + name.slice(1)
@@ -106,9 +106,9 @@ module.exports = {
 
     // Incase a directory is provided change the directory
     if (!data.inPlace) {
-      destDirName = pwd + '/' + data.destDirName + '/src'
+      destDirName = path.resolve(data.destDirName) + '/src'
     }
-    
+
     // Iterate over all the files
     Object.keys(files).forEach((key) => {
       // Search for the files with "component"
