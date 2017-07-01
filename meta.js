@@ -71,6 +71,11 @@ module.exports = {
           "short": "Sass"
         },
         {
+          "name": "SCSS",
+          "value": "scss",
+          "short": "Scss"
+        },
+        {
           "name": "STYLUS",
           "value": "styl",
           "short": "Stylus"
